@@ -338,3 +338,4 @@ run_ast.py
 .claude/settings.json
 .claude/settings.local.json
 BillNote_frontend/pnpm-lock.yaml
+.graphifyignore

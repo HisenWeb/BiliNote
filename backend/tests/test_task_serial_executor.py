@@ -15,7 +15,7 @@ spec.loader.exec_module(task_serial_executor)
 SerialTaskExecutor = task_serial_executor.SerialTaskExecutor
 
 
-class TestTaskSerialExecutor(unittest.TestCase):
+class TestSerialTaskExecutor(unittest.TestCase):
     def test_executor_runs_tasks_one_by_one(self):
         executor = SerialTaskExecutor()
         state_lock = threading.Lock()

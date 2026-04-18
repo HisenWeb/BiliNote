@@ -32,7 +32,7 @@ class VideoReader:
         self.save_quality = save_quality
         self.frame_dir = frame_dir or get_app_dir("output_frames")
         self.grid_dir = grid_dir or get_app_dir("grid_output")
-        print(f"视频路径：{video_path}",self.frame_dir,self.grid_dir)
+        logger.info(f"视频路径：{video_path}")
         self.font_path = font_path
 
     @staticmethod
@@ -155,14 +155,11 @@ class VideoReader:
             for file in os.listdir(self.frame_dir):
                 if file.startswith("frame_"):
                     os.remove(os.path.join(self.frame_dir, file))
-            print(self.frame_dir,self.grid_dir)
             #清空网格文件夹
             for file in os.listdir(self.grid_dir):
                 if file.startswith("grid_"):
                     os.remove(os.path.join(self.grid_dir, file))
-            print(self.frame_dir,self.grid_dir)
             self.extract_frames()
-            print("2#3",self.frame_dir,self.grid_dir)
             logger.info("开始拼接网格图...")
             image_paths = []
             groups = self.group_images()
