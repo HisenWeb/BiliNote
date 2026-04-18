@@ -72,3 +72,12 @@ cd BillNote_frontend && pnpm tauri build
 - **Frontend**: ESLint + Prettier (2 spaces, single quotes, 100 char width, Tailwind plugin). TypeScript strict mode.
 - **Backend**: Python with type hints. No configured linter. Uses Pydantic models for validation.
 - **Note**: The frontend directory is named `BillNote_frontend` (not "Bili").
+
+## graphify
+
+This project has a graphify knowledge graph at graphify-out/.
+
+Rules:
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)

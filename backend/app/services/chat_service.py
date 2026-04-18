@@ -120,15 +120,17 @@ def chat(
             messages=messages,
             tools=TOOLS,
             temperature=0.7,
+            # MiniMax: 启用 reasoning_split 以便分离思考内容
+            extra_body={"reasoning_split": True} if "minimax" in provider.get("base_url", "").lower() else None,
         )
 
         msg = response.choices[0].message
 
-        # 没有工具调用，直接返回
+        # 没有工具调用，直接返回（保留完整 content，包括 <thinking> 标签）
         if not msg.tool_calls:
             return {"answer": msg.content or "", "sources": sources}
 
-        # 处理工具调用
+        # MiniMax: 添加完整的 response_message 对象到消息历史（包含 tool_calls）
         messages.append(msg)
 
         for tool_call in msg.tool_calls:
@@ -153,6 +155,7 @@ def chat(
         model=gpt.model,
         messages=messages,
         temperature=0.7,
+        extra_body={"reasoning_split": True} if "minimax" in provider.get("base_url", "").lower() else None,
     )
 
     return {"answer": response.choices[0].message.content or "", "sources": sources}

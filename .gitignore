@@ -327,3 +327,14 @@ cython_debug/
 # FFmpeg 构建文件（不应该提交到仓库）
 ffmpeg*/
 ffmpg*/
+# Graphify outputs
+graphify-out/
+.graphify_python
+.graphify_detect.json
+.graphify_incremental.json
+prep_chunks.py
+run_ast.ps1
+run_ast.py
+.claude/settings.json
+.claude/settings.local.json
+BillNote_frontend/pnpm-lock.yaml

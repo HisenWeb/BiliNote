@@ -96,9 +96,19 @@ class ModelService:
             logger.info(f"[{provider['name']}] 获取模型成功")
             return model_list
         except Exception as e:
-            # print(f"[{provider_id}] 获取模型失败: {e}")
-            logger.error(f"[{provider_id}] 获取模型失败: {e}")
-            return []
+            # models.list() 不支持的供应商（如 MiniMax），回退到数据库已保存的模型
+            logger.warning(f"[{provider_id}] API 模型列表获取失败，回退到数据库: {e}")
+            try:
+                db_models = get_models_by_provider(provider_id)
+                serializable_models = [
+                    {"id": m["model_name"], "model_name": m["model_name"], "object": "model", "created": 0, "owned_by": ""}
+                    for m in db_models
+                ]
+                logger.info(f"[{provider_id}] 从数据库返回 {len(serializable_models)} 个模型")
+                return {"models": serializable_models}
+            except Exception as db_e:
+                logger.error(f"[{provider_id}] 数据库模型获取也失败: {db_e}")
+                return []
     @staticmethod
     def connect_test(id: str) -> bool:
 

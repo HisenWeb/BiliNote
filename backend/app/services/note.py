@@ -262,7 +262,11 @@ class NoteGenerator:
             raise Exception(f"不支持的转写器：{self.transcriber_type}")
 
         logger.info(f"使用转写器：{self.transcriber_type}")
-        return get_transcriber(transcriber_type=self.transcriber_type)
+        return get_transcriber(
+            transcriber_type=self.transcriber_type,
+            model_size=self.model_size,
+            device="cuda",
+        )
 
     def _get_gpt(self, model_name: Optional[str], provider_id: Optional[str]) -> GPT:
         """
