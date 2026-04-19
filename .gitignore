@@ -309,6 +309,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 /backend/data/*
+/backend/app/*
 /backend/static/*
 /backend/note_tasks.db
 /backend/bin/
@@ -321,6 +322,8 @@ cython_debug/
 /backend/.idea/*
 /backend/config/*
 /backend/vector_db/
+backend/graphify-out/*
+graphify-out/*
 /BiliNote_frontend/.idea/*
 /BiliNote_frontend/src-tauri/bin/
 
@@ -333,9 +336,16 @@ graphify-out/
 .graphify_detect.json
 .graphify_incremental.json
 prep_chunks.py
+.graphify_python
+.graphifyignore
+prep_chunks.py
+pyproject.toml
 run_ast.ps1
 run_ast.py
 .claude/settings.json
 .claude/settings.local.json
 BillNote_frontend/pnpm-lock.yaml
 .graphifyignore
+backend/.graphify_detect.json
+backend/.graphify_incremental.json
+BillNote_frontend/pnpm-lock.yaml

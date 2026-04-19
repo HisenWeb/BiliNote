@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+- 更新.gitignore和添加CHANGELOG.md文件
+
 ## [2.1.0] - 2026-04-19
 
 ### 修复
