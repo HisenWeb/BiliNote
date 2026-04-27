@@ -359,7 +359,9 @@ const MarkdownViewer: FC<MarkdownViewerProps> = memo(({ status }) => {
   }
   const handleDownload = () => {
     const task = getCurrentTask()
-    const name = task?.audioMeta.title || 'note'
+    // 移除 Windows 文件系统不允许的字符
+    const sanitizeFilename = (name: string) => name.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_')
+    const name = sanitizeFilename(task?.audioMeta.title || 'note')
     const filename = `${name}.md`
     const blob = new Blob([selectedContent], { type: 'text/markdown;charset=utf-8' })
     const url = URL.createObjectURL(blob)
