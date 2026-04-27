@@ -363,7 +363,8 @@ const MarkdownViewer: FC<MarkdownViewerProps> = memo(({ status }) => {
     const blob = new Blob([selectedContent], { type: 'text/markdown;charset=utf-8' })
     const link = document.createElement('a')
     link.href = URL.createObjectURL(blob)
-    link.download = `${name}.md`
+    // 使用 encodeURIComponent 处理特殊字符，确保 .md 后缀不被丢失
+    link.download = encodeURIComponent(`${name}.md`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
