@@ -38,6 +38,11 @@ class BilibiliDownloader(Downloader, ABC):
 
         output_path = os.path.join(output_dir, "%(id)s.%(ext)s")
 
+        # 添加 cookies 支持
+        cookies_path = Path(BILIBILI_COOKIES_FILE)
+        if not cookies_path.is_absolute():
+            cookies_path = Path(__file__).parent.parent.parent / BILIBILI_COOKIES_FILE
+
         ydl_opts = {
             'format': 'bestaudio[ext=m4a]/bestaudio/best',
             'outtmpl': output_path,
@@ -51,6 +56,12 @@ class BilibiliDownloader(Downloader, ABC):
             'noplaylist': True,
             'quiet': False,
         }
+
+        if cookies_path.exists():
+            ydl_opts['cookiefile'] = str(cookies_path)
+            logger.info(f"使用 cookies 文件: {cookies_path}")
+        else:
+            logger.warning(f"B站 cookies 文件不存在: {cookies_path}，部分视频可能下载失败")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=True)
@@ -92,6 +103,11 @@ class BilibiliDownloader(Downloader, ABC):
         # 检查是否已经存在
 
 
+        # 添加 cookies 支持
+        cookies_path = Path(BILIBILI_COOKIES_FILE)
+        if not cookies_path.is_absolute():
+            cookies_path = Path(__file__).parent.parent.parent / BILIBILI_COOKIES_FILE
+
         output_path = os.path.join(output_dir, "%(id)s.%(ext)s")
 
         ydl_opts = {
@@ -101,6 +117,12 @@ class BilibiliDownloader(Downloader, ABC):
             'quiet': False,
             'merge_output_format': 'mp4',  # 确保合并成 mp4
         }
+
+        if cookies_path.exists():
+            ydl_opts['cookiefile'] = str(cookies_path)
+            logger.info(f"使用 cookies 文件: {cookies_path}")
+        else:
+            logger.warning(f"B站 cookies 文件不存在: {cookies_path}，部分视频可能下载失败")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=True)
