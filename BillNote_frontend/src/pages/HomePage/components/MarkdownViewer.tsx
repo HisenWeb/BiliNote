@@ -360,14 +360,17 @@ const MarkdownViewer: FC<MarkdownViewerProps> = memo(({ status }) => {
   const handleDownload = () => {
     const task = getCurrentTask()
     const name = task?.audioMeta.title || 'note'
+    const filename = `${name}.md`
     const blob = new Blob([selectedContent], { type: 'text/markdown;charset=utf-8' })
-    const link = document.createElement('a')
-    link.href = URL.createObjectURL(blob)
-    // 使用 encodeURIComponent 处理特殊字符，确保 .md 后缀不被丢失
-    link.download = encodeURIComponent(`${name}.md`)
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    // 延迟释放 URL，确保下载完成
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
 
   if (status === 'loading') {
